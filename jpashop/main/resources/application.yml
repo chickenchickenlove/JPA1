@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/jpashop #MVCC = TRUE를 넣어주는 것이 권장
+    username: sa
+    password: #password는 없었으니 그냥 둔다.
+    driver-class-name: org.h2.Driver #DB의 속성을 적용해줘야한다. H2용으로 걸어주면 된다.
+
+  #이런 설정들은 스프링부트 메뉴얼에서 볼 수 있다.
+  #스프링부트 - project - learn
+  jpa:
+    hibernate:
+      ddl-auto: create #테이블을 자동으로 만들어주는 모드
+    properties:
+      hibernate:
+        #show_sql: true
+        format_sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
