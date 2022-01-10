@@ -38,3 +38,4 @@
 - (코드) MemberRepository, MemberService 개발
 - (코드) MemberRepository 테스트 코드 작성. MemberSerivce 테스트 코드 작성.
 - (코드) Item 비즈니스 로직 개발(addStock, removeStock), ItemRepository 개발, ItemService 개발
+- (코드) ItemService 테스트 코드 작성  
