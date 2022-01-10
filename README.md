@@ -35,3 +35,5 @@
 - (강의) 상품 주문 컨트롤러 개발
 - (강의) 주문 목록, 검색, 취소 컨트롤러 개발
 - (정리) @Transaction 어노테이션에 대한 이해 관련 정리 (https://ojt90902.tistory.com/683)
+- (코드) MemberRepository, MemberService 개발
+- (코드) MemberRepository 테스트 코드 작성. MemberSerivce 테스트 코드 작성.
