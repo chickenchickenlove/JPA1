@@ -37,3 +37,4 @@
 - (정리) @Transaction 어노테이션에 대한 이해 관련 정리 (https://ojt90902.tistory.com/683)
 - (코드) MemberRepository, MemberService 개발
 - (코드) MemberRepository 테스트 코드 작성. MemberSerivce 테스트 코드 작성.
+- (코드) Item 비즈니스 로직 개발(addStock, removeStock), ItemRepository 개발, ItemService 개발
