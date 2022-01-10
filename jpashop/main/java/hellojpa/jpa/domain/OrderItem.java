@@ -30,6 +30,31 @@ public class OrderItem {
 
 
 
+    //== 비즈니스 로직==//
+
+    public void cancel() {
+        item.removeStock(count);
+    }
+
+    public int getTotalPrice() {
+        return this.orderPrice * this.count;
+    }
+
+    //== 생성 메서드 ==//
+
+    public static OrderItem createOrder(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+
+        // 주문 되었으니 그만큼 줄어들어야 한다.
+        item.removeStock(count);
+
+        return orderItem;
+    }
+
+
 
 
 }

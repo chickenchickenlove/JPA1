@@ -11,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
 public abstract class Item {
@@ -59,6 +60,8 @@ public abstract class Item {
     }
 
 
+    //== 변경 메서드==//
+
     public Item changItemValue(String name, int price, int stockQuantity) {
         this.name = name;
         this.price = price;
@@ -66,12 +69,5 @@ public abstract class Item {
         return this;
 
     }
-
-
-
-
-
-
-
 
 }

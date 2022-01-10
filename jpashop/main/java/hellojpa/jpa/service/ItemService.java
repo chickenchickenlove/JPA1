@@ -15,8 +15,9 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public void saveItem(Item item) {
+    public Long saveItem(Item item) {
         itemRepository.save(item);
+        return item.getId();
     }
 
     // 더티체크
