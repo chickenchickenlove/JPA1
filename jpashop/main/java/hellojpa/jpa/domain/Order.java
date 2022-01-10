@@ -1,6 +1,5 @@
 package hellojpa.jpa.domain;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,34 +11,28 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "Orders")
+@Table(name = "orders")
 public class Order {
-
 
     @Id
     @GeneratedValue
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne // 객체 맵핑
-    @JoinColumn(name = "member_id") // 테이블 맵핑
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order") // 객체 연관관계 설정 + 객체 FK 제거
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL) // order가 만들어지면 orderItem이 만들어지기 때문에 영속성 전이한다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name = "delivery_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Delivery delivery;
 
-    private LocalDateTime orderData;
+    private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
-
-
-
 
 
 }

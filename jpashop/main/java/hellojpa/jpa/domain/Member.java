@@ -1,6 +1,5 @@
 package hellojpa.jpa.domain;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,24 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 public class Member {
-
 
     @Id
     @GeneratedValue
-    @Column(name = "member_id") // 테이블 관점
+    @Column(name = "member_id")
     private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
-
-
     @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "member") // member 객체가 내 연관관계의 주인이다.  FK 제거.
+    private List<Order> orders = new ArrayList<>();
+
 
 
 

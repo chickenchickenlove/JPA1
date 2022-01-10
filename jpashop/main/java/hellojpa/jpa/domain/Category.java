@@ -13,42 +13,26 @@ import java.util.List;
 @Setter
 public class Category {
 
-
     @Id
     @GeneratedValue
     @Column(name = "category_id")
     private Long id;
+
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "category_item",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id"))
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "category_item"
+            , joinColumns = @JoinColumn(name = "category_id")
+            , inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
     private List<Item> items = new ArrayList<>();
 
 
-
-    // 부모 자식 만들자.
-    // 부모는 하나다.
-
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
     private List<Category> children = new ArrayList<>();
-
-    // 자식은 여러개다.
-    // 이거
-
-
-
-
-
-
-
-
-
 }
