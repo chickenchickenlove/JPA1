@@ -1,5 +1,7 @@
 package hellojpa.jpa.service;
 
+import hellojpa.jpa.controller.MemberForm;
+import hellojpa.jpa.domain.Address;
 import hellojpa.jpa.domain.Member;
 import hellojpa.jpa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +28,13 @@ public class MemberService {
      * 중복 회원이 있을 경우 예외 터뜨리며 돌아간다.
      */
     @Transactional
-    public Long join(Member member) {
+    public Long join(MemberForm form) {
+
+        Member member = new Member();
+        member.setName(form.getName());
+
+        Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        member.setAddress(address);
 
         // 문제가 발생하면 예외를 터뜨려서 위로 보낸다.
         validateDuplicatedMember(member);

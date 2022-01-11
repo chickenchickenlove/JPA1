@@ -1,6 +1,7 @@
 package hellojpa.jpa.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -22,6 +23,18 @@ public class Delivery {
     private Address address;
 
     private DeliveryStatus status;
+
+
+    public Delivery() {
+        this.status = DeliveryStatus.READY;
+    }
+
+    public void checkCancelStatus(){
+        if (this.status.equals(DeliveryStatus.COMP)) {
+            throw new IllegalStateException("배송이 완료된 상품입니다.");
+        }
+
+    }
 
 
 

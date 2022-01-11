@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hellojpa.jpa.domain.OrderStatus.*;
+
 @Entity
 @Getter
 @Setter
@@ -39,13 +41,43 @@ public class Order {
     private OrderStatus status;
 
 
+    //== 비즈니스 메서드==//
+    // 엔티티 내에서만 가질 수 있는 걸 해야한다.
+    // 상품 조회 // 엔티티 내에서만 가질 수 잇는 걸 해야한다. 트랜잭션 없임.
 
-    //== 연관관계 메서드==//
-    //연관관계의 주인이 아니더라도, Order를 기준으로 모든 것들이 이루어지기 떄문에 비즈니스 로직윽 Order를 기준으로 짜는게 좋다.
+    public int getTotalPrice() {
+        return orderItems.stream().mapToInt(OrderItem::getTotalPrice)
+                .sum();
+    }
 
+
+    // 주문 취소 -> 상품 취소
+    public void cancel() {
+
+        // 배송 완료 체크 로직
+        delivery.checkCancelStatus();
+
+        // 배송 완료가 아니라면
+        setStatus(CANCEL);
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    //== 연관관계 편의 메서드==//
+    /**
+     * ORDER 중심으로 돌아간다.
+     * ORDER에 연관관계 편의 메서드 작성한다.
+     */
     public void setMember(Member member) {
         this.member = member;
         member.getOrders().add(this);
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        this.orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 
     public void setDelivery(Delivery delivery) {
@@ -53,66 +85,28 @@ public class Order {
         delivery.setOrder(this);
     }
 
-    public void addOrderItems(OrderItem orderItem) {
-        orderItem.setOrder(this);
-        this.orderItems.add(orderItem);
-    }
 
     //== 생성 메서드==//
-    // 주문 생성
-    // 오더를 생성하는 것이기 때문에..
-
-
-    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+    public static Order createOrder(Member member,Delivery delivery, OrderItem... orderItems) {
 
         Order order = new Order();
-        order.setOrderDate(LocalDateTime.now());
-        order.setStatus(OrderStatus.ORDER);
-        order.setDelivery(delivery);
         order.setMember(member);
+        order.setDelivery(delivery);
 
         for (OrderItem orderItem : orderItems) {
-            order.addOrderItems(orderItem);
+            order.addOrderItem(orderItem);
         }
+
+        order.setStatus(ORDER);
+        order.setOrderDate(LocalDateTime.now());
 
         return order;
-
     }
 
-    //== 비즈니스 로직 ==//
-    // 주문 조회
 
 
-    /**
-     * 주문 취소 → 잔고가 1개 올라간다.
-     */
-
-    public void cancel() {
-
-        if (this.getStatus().equals(OrderStatus.CANCEL)) {
-            throw new IllegalStateException("이미 취소된 상품은 다시 한번 취소가 불가능합니다.");
-        }
-
-        if (this.delivery.getStatus().equals(DeliveryStatus.COMP)) {
-            throw new IllegalStateException("이미 배송 완료된 상품은 취소가 불가능합니다. ");
-        }
-        this.setStatus(OrderStatus.CANCEL);
-
-        for (OrderItem orderItem : this.orderItems) {
-            orderItem.cancel();
-        }
-    }
-
-    /**
-     * 전체 주문 가격 조회
-     * orderItem들의 주문 가격을 다 가져와서, 곱하고 더하면 된다.
-     */
 
 
-    public int getTotalPrice() {
-        return this.orderItems.stream().mapToInt(OrderItem::getTotalPrice)
-                .sum();
-    }
 
 
 

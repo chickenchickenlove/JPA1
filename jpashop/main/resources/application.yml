@@ -9,7 +9,7 @@ spring:
   #스프링부트 - project - learn
   jpa:
     hibernate:
-      ddl-auto: create #테이블을 자동으로 만들어주는 모드
+      ddl-auto: create-drop #테이블을 자동으로 만들어주는 모드
     properties:
       hibernate:
         #show_sql: true
