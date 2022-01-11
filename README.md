@@ -46,3 +46,5 @@
 - (코드) OrderRepository 회원 검색 기능 개발
 - (코드) ItemRepository 관련 테스트 코드 
 - (코드) HomeController, MemberController 개발
+- (코드) ItemController, OrderController 개발. 
+- (이슈) OrderController의 검색기능 페이지 오동작. 수정 필요. 
