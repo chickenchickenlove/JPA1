@@ -36,47 +36,46 @@ public class OrderRepository {
     }
 
     // 회원 이름으로 검색 쿼리
-    public List<Order> findAllByString(OrderSearch orderSearch) {
+    public List<Order> findAllByString(OrderSearch ordersearch) {
 
-        String jpql = "select o from Order o join o.member m"; // o + m
+        String jpql = "select o from Order o join o.member m";
         boolean isFirstCondition = true;
 
-        if (orderSearch.getOrderStatus() != null) {
+        // 주문 상태 검색
+        if (ordersearch.getOrderStatus() != null) {
             if (isFirstCondition) {
                 jpql += " where";
                 isFirstCondition = false;
             } else {
-                jpql += " and";
+                jpql += " and"; // 2개 이상 붙어야 할 경우...
             }
             jpql += " o.status = :status";
         }
 
-
-        if (orderSearch.getMemberName()!= null) {
+        // 회원 이름 검색
+        if (StringUtils.hasText(ordersearch.getMemberName())) {
             if (isFirstCondition) {
                 jpql += " where";
                 isFirstCondition = false;
             } else {
                 jpql += " and";
             }
-            jpql += " m.name like :name";
-        }
-
-        TypedQuery<Order> query = em.createQuery(jpql, Order.class);
-
-
-        if (orderSearch.getOrderStatus() != null) {
-            query = query.setParameter("status", orderSearch.getOrderStatus());
+            jpql += "m.name like :name";
         }
 
 
-        if (StringUtils.hasText(orderSearch.getMemberName())) {
-            query = query.setParameter("name", orderSearch.getMemberName());
+        TypedQuery<Order> query = em.createQuery(jpql, Order.class)
+                .setMaxResults(1000);
+
+        if (ordersearch.getOrderStatus() != null) {
+            query = query.setParameter("status", ordersearch.getOrderStatus());
         }
 
+        if (StringUtils.hasText(ordersearch.getMemberName())) {
+            query = query.setParameter("name", ordersearch.getMemberName());
+        }
 
         return query.getResultList();
     }
-
 
 }
