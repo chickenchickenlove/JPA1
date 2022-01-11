@@ -42,4 +42,5 @@
 
 22.01.11
 - (코드) Order, OrderRepository, OrderService 개발.(비즈니스 로직, 생성 메서드, 연관관계 편의 메서드 등)
--
+- (코드) Order, OrderRepository, OrderService 개발 재복습
+- (코드) OrderRepository 회원 검색 기능 개발
