@@ -49,3 +49,7 @@
 - (코드) ItemController, OrderController 개발. 
 - (이슈) OrderController의 검색기능 페이지 오동작. 수정 필요. → select 쿼리 중 join 이상한 것으로 확인됨. QueryDSL등으로 수정 보완이 필요함.
 - (코드) OrderCancle 컨트롤러 
+- (강의) 회원 저장 API 개발 수강
+- (강의) 회원 수정 API 개발 수강
+- (강의) 회원 조회 API 개발 수강
+- (강의) API 개발 고급 소개 + 조회용 샘플 데이터 코드 입력 수강. 
