@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,13 +56,30 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String orderList(@ModelAttribute(name = "orderSearch")
-                                        OrderSearch orderSearch,
+                                    OrderSearch orderSearch,
                             Model model) {
         List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders", orders);
 
         return "order/orderList";
     }
+
+
+    @PostMapping("/orders/{orderId}/cancel")
+    public String cancelOrder(@PathVariable(name = "orderId") Long orderId,
+                              Model model) {
+
+
+        orderService.cancel(orderId);
+
+
+
+        //취소하면 orders로 돌아가자
+
+        return "redirect:/";
+
+    }
+
 
 
 
