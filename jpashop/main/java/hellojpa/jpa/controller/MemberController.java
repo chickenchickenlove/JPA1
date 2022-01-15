@@ -1,6 +1,7 @@
 package hellojpa.jpa.controller;
 
 
+import hellojpa.jpa.domain.Address;
 import hellojpa.jpa.domain.Member;
 import hellojpa.jpa.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -33,15 +34,20 @@ public class MemberController {
 
 
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm memberForm, BindingResult bindingResult,
+    public String create(@Valid MemberForm form, BindingResult bindingResult,
                          Model model) {
 
         if (bindingResult.hasErrors()) {
             return "members/createMemberForm";
         }
 
+
+        Member member = new Member();
+        member.setName(form.getName());
+        member.setAddress(new Address(form.getCity(), form.getStreet(), form.getZipcode()));
+
         // 성공 로직
-        memberService.join(memberForm);
+        memberService.join(member);
 
         //PRG 처리
         return "redirect:/";

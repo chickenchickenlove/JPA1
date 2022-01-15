@@ -23,12 +23,12 @@ public class BeforeTestController {
     @PostConstruct
     public void init() {
 
-        MemberForm form = new MemberForm();
-        form.setCity("수원");
-        form.setName("김철수");
-        form.setStreet("영통");
-        form.setZipcode("123");
-        memberService.join(form);
+
+        Member member = new Member();
+        member.setAddress(new Address("수원", "영통","123"));
+        member.setName("김철수");
+
+        memberService.join(member);
 
 
         Book book = new Book();

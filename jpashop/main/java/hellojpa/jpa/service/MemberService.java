@@ -28,14 +28,7 @@ public class MemberService {
      * 중복 회원이 있을 경우 예외 터뜨리며 돌아간다.
      */
     @Transactional
-    public Long join(MemberForm form) {
-
-        Member member = new Member();
-        member.setName(form.getName());
-
-        Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
-        member.setAddress(address);
-
+    public Long join(Member member) {
         // 문제가 발생하면 예외를 터뜨려서 위로 보낸다.
         validateDuplicatedMember(member);
         return memberRepository.saveMember(member);
@@ -70,7 +63,10 @@ public class MemberService {
     }
 
 
+    @Transactional
+    public void updateMember(Long id, String name) {
+        Member member = memberRepository.findMember(id);
+        member.setName(name);
 
-
-
+    }
 }
