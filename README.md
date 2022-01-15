@@ -74,3 +74,5 @@
 - (강의) JPA에서 DTO로 직접 조회
 - (강의) JPA에서 DTO로 직접 조회하는 부분의 컬렉션 조회 최적화
 - (강의) JPA에서 DTO로 직접 조회하는 부분을 플랫화 해서 쿼리 횟수 최적화
+- (코드) MemberApiController : API 방식의 회원 조회, 저장, 수정 컨트롤러 개발
+- (코드) MemberService : Dirty Check를 이용한 Member Update 로직 개발 
