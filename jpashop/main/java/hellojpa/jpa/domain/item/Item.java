@@ -1,5 +1,6 @@
 package hellojpa.jpa.domain.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import hellojpa.jpa.domain.Category;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public abstract class Item {
 
     private int stockQuantity;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "items", fetch = FetchType.LAZY)
     private List<Category> categories = new ArrayList<>();
 

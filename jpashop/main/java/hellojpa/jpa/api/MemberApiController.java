@@ -23,7 +23,6 @@ public class MemberApiController {
     // JSON으로 응답해야한다.
     @PostMapping("/api/v1/members")
     public CreateMemberResponse saveMemberV1(@RequestBody Member member) {
-        log.info("here");
         Long saveId = memberService.join(member);
         return new CreateMemberResponse(saveId);
     }
@@ -34,7 +33,6 @@ public class MemberApiController {
 
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody CreateMemberRequest request) {
-        log.info("saveMemberV2");
 
         Member member = new Member();
         member.setName(request.getName());
@@ -49,12 +47,10 @@ public class MemberApiController {
     public UpdateMemberResponse updateMemberV2(@RequestBody UpdateMemberRequest request,
                                                @PathVariable(name = "memberId") Long id) {
 
-        // 커맨드와 쿼리를 분리해라. 쿼리는 여기서 하는게 아니다.
         memberService.updateMember(id, request.getName());
         Member findMember = memberService.findOne(id);
 
         return new UpdateMemberResponse(findMember.getId(), findMember.getName());
-
     }
 
     // 회원 조회 API 엔티티 직접 노출
@@ -83,9 +79,7 @@ public class MemberApiController {
         List<MemberDto> collect = members.stream()
                 .map(member -> new MemberDto(member.getName()))
                 .collect(Collectors.toList());
-
         return new Result(collect);
-
     }
 
 

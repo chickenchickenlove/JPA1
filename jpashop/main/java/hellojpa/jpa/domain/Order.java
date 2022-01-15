@@ -32,7 +32,7 @@ public class Order {
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL) // order가 만들어지면 orderItem이 만들어지기 때문에 영속성 전이한다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Delivery delivery;
 
     private LocalDateTime orderDate;

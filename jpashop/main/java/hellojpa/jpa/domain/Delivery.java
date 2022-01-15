@@ -1,5 +1,6 @@
 package hellojpa.jpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +17,8 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery")
+    @JsonIgnore
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Order order;
 
     @Embedded
@@ -33,12 +35,7 @@ public class Delivery {
         if (this.status.equals(DeliveryStatus.COMP)) {
             throw new IllegalStateException("배송이 완료된 상품입니다.");
         }
-
     }
-
-
-
-
 
 
 
