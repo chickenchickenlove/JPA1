@@ -76,3 +76,5 @@
 - (강의) JPA에서 DTO로 직접 조회하는 부분을 플랫화 해서 쿼리 횟수 최적화
 - (코드) MemberApiController : API 방식의 회원 조회, 저장, 수정 컨트롤러 개발
 - (코드) MemberService : Dirty Check를 이용한 Member Update 로직 개발 
+- (정리) MmemberApiController / MemverService 구현에 관한 정리 (https://ojt90902.tistory.com/688)
+- (코드) SimpleOrderApiController 구현 : Order와 xToOne 연관관계의 변수들만 랩핑해서 반환하는 API 구현 
