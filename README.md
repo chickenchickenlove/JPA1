@@ -85,3 +85,9 @@
 - (코드) OrderApiController의 Collection 유형 엔티티를 직접 반환하는 Controller 개발
 - (코드) OrderApiController의 Collection 유형을 DTO로 반환하는 Controller 개발
 - (코드) OrderApiController의 Collection 유형을 DTO로 반환하며 Fetch Join으로 N+1 문제를 해결하는 API Controller 개발 
+
+22.01.17
+- (코드) OrderApiController의 Collection 유형 엔티티를 DTO로 JPA에 직접 접근해서 반환하는 코드
+- (정리) OSVI (https://ojt90902.tistory.com/691)
+- (정리) 개발 과정에서 발생한 문제 디버깅(https://ojt90902.tistory.com/692)
+- 
