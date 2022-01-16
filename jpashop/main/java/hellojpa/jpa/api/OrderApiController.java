@@ -1,11 +1,11 @@
 package hellojpa.jpa.api;
 
-import hellojpa.jpa.domain.Address;
-import hellojpa.jpa.domain.Order;
-import hellojpa.jpa.domain.OrderItem;
-import hellojpa.jpa.domain.OrderStatus;
+import hellojpa.jpa.domain.*;
 import hellojpa.jpa.repository.OrderRepository;
 import hellojpa.jpa.repository.OrderSearch;
+import hellojpa.jpa.repository.order.query.OrderQueryDto;
+import hellojpa.jpa.repository.order.query.OrderQueryRepository;
+import hellojpa.jpa.repository.order.simplequery.OrderSimpleQueryRepository;
 import hellojpa.jpa.service.OrderService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,19 @@ public class OrderApiController {
 
     private final OrderService orderService;
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
+    private final OrderQueryRepository orderQueryRepository;
+
 
     //== V1 : 엔티티 직접 노출 ==//
     // 컬렉션까지 직접 노출
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
-        List<Order> orders = orderService.findOrders(new OrderSearch());
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+
+
+        System.out.println("orders = " + orders.get(0).getId());
+
 
         orders.stream()
                 .forEach(o ->
@@ -72,6 +79,7 @@ public class OrderApiController {
 
 
     //페이징이 가능하도록 배치 사이즈를 설정한다
+    //지연로딩으로 Order만 가져오기 때문에, Order는 1개만 된다. 따라서, 페이징이 가능하다.
     @BatchSize(size = 100)
     @GetMapping("/api/v3.1/orders")
     public List<OrderDto> ordersV3_page(
@@ -86,6 +94,16 @@ public class OrderApiController {
                 .collect(Collectors.toList());
 
     }
+
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4(){
+        return orderQueryRepository.findOrderQueryDtos();
+    }
+
+
+
+
 
 
 

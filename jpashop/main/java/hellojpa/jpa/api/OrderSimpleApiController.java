@@ -5,6 +5,8 @@ import hellojpa.jpa.domain.Order;
 import hellojpa.jpa.domain.OrderStatus;
 import hellojpa.jpa.repository.OrderRepository;
 import hellojpa.jpa.repository.OrderSearch;
+import hellojpa.jpa.repository.order.query.OrderQueryDto;
+import hellojpa.jpa.repository.order.query.OrderQueryRepository;
 import hellojpa.jpa.repository.order.simplequery.OrderSimpleQueryRepository;
 import hellojpa.jpa.repository.order.simplequery.SimpleQueryDto;
 import hellojpa.jpa.service.OrderService;
@@ -25,6 +27,7 @@ public class OrderSimpleApiController {
     private final OrderRepository orderRepository;
     private final OrderService orderService;
     private final OrderSimpleQueryRepository orderSimpleQueryRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
 
     // 주문 toOne 관계만 Entity로 돌려주기
@@ -70,9 +73,8 @@ public class OrderSimpleApiController {
     // 논리적으로 이제 분리가 필요하다.
 
     @GetMapping("/api/v4/simple-orders")
-    public List<SimpleQueryDto> ordersV4() {
-        return orderSimpleQueryRepository.findOrderDtos();
-
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
     }
 
 
