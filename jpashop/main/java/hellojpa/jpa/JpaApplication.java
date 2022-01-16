@@ -12,15 +12,12 @@ public class JpaApplication {
 		SpringApplication.run(JpaApplication.class, args);
 	}
 
-	@Bean
+	@Bean // 이걸 사용하면, proxy 객체는 그냥 json에서 null 로 표시해준다.
 	Hibernate5Module hibernate5Module() {
 
 		Hibernate5Module hibernate5Module = new Hibernate5Module();
 //		hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
-
 		return hibernate5Module;
-
-
 	}
 
 

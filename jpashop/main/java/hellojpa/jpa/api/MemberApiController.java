@@ -79,6 +79,9 @@ public class MemberApiController {
         List<MemberDto> collect = members.stream()
                 .map(member -> new MemberDto(member.getName()))
                 .collect(Collectors.toList());
+
+
+
         return new Result(collect);
     }
 

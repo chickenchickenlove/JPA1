@@ -1,17 +1,17 @@
 package hellojpa.jpa.api;
 
-
 import hellojpa.jpa.domain.Address;
 import hellojpa.jpa.domain.Order;
 import hellojpa.jpa.domain.OrderStatus;
 import hellojpa.jpa.repository.OrderRepository;
 import hellojpa.jpa.repository.OrderSearch;
-import hellojpa.jpa.repository.order.simplerquery.OrderSimpleQueryRepository;
-import hellojpa.jpa.repository.order.simplerquery.SimpleOrderQueryDto;
+import hellojpa.jpa.repository.order.simplequery.OrderSimpleQueryRepository;
+import hellojpa.jpa.repository.order.simplequery.SimpleQueryDto;
+import hellojpa.jpa.service.OrderService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -19,73 +19,68 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@Slf4j
 @RequiredArgsConstructor
 public class OrderSimpleApiController {
 
-
     private final OrderRepository orderRepository;
+    private final OrderService orderService;
     private final OrderSimpleQueryRepository orderSimpleQueryRepository;
 
 
-    // Order 엔티티를 직접 반환하는 API
-    // N+1번 쿼리가 발생한다.
+    // 주문 toOne 관계만 Entity로 돌려주기
+    // 너무 많은 정보가 포함되어 나간다.
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
-        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
-
-        // member, delivery, orderItems
-        for (Order order : orders) {
+        List<Order> orders = orderService.findOrders(new OrderSearch());
+        orders.forEach(order ->
+        {
             order.getMember().getName();
             order.getDelivery().getStatus();
-        }
+        });
         return orders;
     }
 
-    // order를 DTO로 반환하는 API //
-    // N+1문제 있음
+
+    // Dto로 바꿔서 돌려주기
     @GetMapping("/api/v2/simple-orders")
-    public ResultSimpleOrderDto ordersV2() {
-        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
-        System.out.println(orders);
+    public List<SimpleOrderDto> ordersV2() {
+        List<Order> orders = orderService.findOrders(new OrderSearch());
 
-        ResultSimpleOrderDto resultSimpleOrderDto = new ResultSimpleOrderDto();
-        List<SimpleOrderDto> collect = orders.stream()
-                .map(order -> new SimpleOrderDto(order))
+        return orders.stream()
+                .map(o -> new SimpleOrderDto(o))
                 .collect(Collectors.toList());
-
-        resultSimpleOrderDto.setOrders(collect);
-        return resultSimpleOrderDto;
     }
 
 
+    // N+1 문제 해결
+    // 너무 많은 정보를 가져온다.
+    // 엔티티로 조회했더니, 엔티티를 가져와서 여기서 뭔가 더 해줄 수 있다.
     @GetMapping("/api/v3/simple-orders")
-    public ResultSimpleOrderDto ordersV3() {
+    public List<SimpleOrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithMemberDelivery();
-        System.out.println(orders);
 
-        ResultSimpleOrderDto resultSimpleOrderDto = new ResultSimpleOrderDto();
-        List<SimpleOrderDto> collect = orders.stream()
-                .map(order -> new SimpleOrderDto(order))
+        return orders.stream()
+                .map(o -> new SimpleOrderDto(o))
                 .collect(Collectors.toList());
-
-        resultSimpleOrderDto.setOrders(collect);
-        return resultSimpleOrderDto;
     }
+
+
+    // dto로 조회한다.
+    // repository는 엔티티와 관련된 곳인데, dto를 조회한다는 건..
+    // 논리적으로 이제 분리가 필요하다.
 
     @GetMapping("/api/v4/simple-orders")
-    public List<SimpleOrderQueryDto> ordersV4() {
+    public List<SimpleQueryDto> ordersV4() {
         return orderSimpleQueryRepository.findOrderDtos();
+
     }
-
-
 
 
 
 
 
     @Data
-    static class SimpleOrderDto{
+    static class SimpleOrderDto {
 
         private Long orderId;
         private String name;
@@ -103,10 +98,10 @@ public class OrderSimpleApiController {
     }
 
 
-    @Data
-    static class ResultSimpleOrderDto {
-        private List<SimpleOrderDto> orders;
-    }
+
+
+
+
 
 
 
