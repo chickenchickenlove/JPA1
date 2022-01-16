@@ -79,3 +79,9 @@
 - (정리) MemberApiController / MemverService 구현에 관한 정리 (https://ojt90902.tistory.com/688)
 - (코드) SimpleOrderApiController 구현 : Order와 xToOne 연관관계의 변수들만 랩핑해서 반환하는 API 구현 
 - (정리) SimpleOrderApiController 구현 관련 정리 (https://ojt90902.tistory.com/690)
+
+
+22.01.16
+- (코드) OrderApiController의 Collection 유형 엔티티를 직접 반환하는 Controller 개발
+- (코드) OrderApiController의 Collection 유형을 DTO로 반환하는 Controller 개발
+- (코드) OrderApiController의 Collection 유형을 DTO로 반환하며 Fetch Join으로 N+1 문제를 해결하는 API Controller 개발 
