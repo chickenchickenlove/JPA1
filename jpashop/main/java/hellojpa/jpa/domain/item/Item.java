@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import hellojpa.jpa.domain.Category;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;

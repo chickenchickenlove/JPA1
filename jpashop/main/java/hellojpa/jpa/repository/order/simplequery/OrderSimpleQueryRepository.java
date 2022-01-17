@@ -1,6 +1,5 @@
 package hellojpa.jpa.repository.order.simplequery;
 
-import hellojpa.jpa.repository.order.query.OrderFlatDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

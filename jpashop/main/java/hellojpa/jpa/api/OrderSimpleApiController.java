@@ -72,11 +72,11 @@ public class OrderSimpleApiController {
     // repository는 엔티티와 관련된 곳인데, dto를 조회한다는 건..
     // 논리적으로 이제 분리가 필요하다.
 
-    @GetMapping("/api/v4/simple-orders")
-    public List<OrderQueryDto> ordersV4() {
-        return orderQueryRepository.findOrderQueryDtos();
-    }
-
+//    @GetMapping("/api/v4/simple-orders")
+//    public List<OrderQueryDto> ordersV4() {
+//        return orderQueryRepository.findOrderQueryDtos();
+//    }
+////
 
 
 
