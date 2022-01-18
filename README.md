@@ -92,3 +92,7 @@
 - (정리) 개발 과정에서 발생한 문제 디버깅(https://ojt90902.tistory.com/692)
 - (코드) OrderApiController의 Collection 유형 엔티티를 DTO로 JPA에 직접 접근했을 때 발생할 수 있는 N+1 문제를 in 절로 최적화.
 - (코드) OrderApiController를 FlatDTO로 모두 불러와서 필요한 형태의 DTO로 반환하는 API 구문 작성.
+
+
+22.01.18
+- (코드) OrderApiController V1 ~ V6 복습
