@@ -28,8 +28,8 @@ public class InitService {
         em.persist(book2);
 
 
-        OrderItem orderItem1 = createOrderItem(book1.getPrice(), book1.getStockQuantity(), book1);
-        OrderItem orderItem2 = createOrderItem(book2.getPrice(), book2.getStockQuantity(), book2);
+        OrderItem orderItem1 = createOrderItem(book1.getPrice(), 10, book1);
+        OrderItem orderItem2 = createOrderItem(book2.getPrice(), 20, book2);
         Delivery delivery = createDelivery(member);
 
         Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
@@ -47,8 +47,8 @@ public class InitService {
         em.persist(book2);
 
 
-        OrderItem orderItem1 = createOrderItem(book1.getPrice(), book1.getStockQuantity(), book1);
-        OrderItem orderItem2 = createOrderItem(book2.getPrice(), book2.getStockQuantity(), book2);
+        OrderItem orderItem1 = createOrderItem(book1.getPrice(), 30, book1);
+        OrderItem orderItem2 = createOrderItem(book2.getPrice(), 40, book2);
         Delivery delivery = createDelivery(member);
 
         Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);

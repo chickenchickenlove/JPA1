@@ -81,6 +81,7 @@ public class OrderRepository {
             query = query.setParameter("name", ordersearch.getMemberName());
         }
 
+
         return query.getResultList();
     }
 
@@ -90,10 +91,6 @@ public class OrderRepository {
                         " join fetch o.member m" +
                         " join fetch o.delivery", Order.class).getResultList();
     }
-
-
-
-
 
 
 
